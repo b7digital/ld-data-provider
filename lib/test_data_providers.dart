@@ -20,7 +20,7 @@ class TestLDProvider<T> extends LDProvider<T> {
 
   @override
   Future next() {
-    if (_isEnd) return null;
+    if (_isEnd || _isLoading) return null;
     _isLoading = true;
     super.notifyListeners();
     return Future.delayed(Duration(milliseconds: _rnd.nextInt(150) + 75), () {
@@ -29,6 +29,7 @@ class TestLDProvider<T> extends LDProvider<T> {
       _isEnd = data.length > length;
       _isLoading = false;
       super.notifyListeners();
+      return;
     });
   }
 
@@ -40,5 +41,6 @@ class TestLDProvider<T> extends LDProvider<T> {
     _data = [];
     _isLoading = false;
     _isEnd = false;
+    return next();
   }
 }
