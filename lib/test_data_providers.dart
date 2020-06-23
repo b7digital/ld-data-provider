@@ -41,6 +41,7 @@ class TestLDProvider<T> extends LDProvider<T> {
     _data = [];
     _isLoading = false;
     _isEnd = false;
+    super.notifyListeners();
     return next();
   }
 }
